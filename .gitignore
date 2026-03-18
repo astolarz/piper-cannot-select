@@ -1,0 +1,10 @@
+.cargo/*
+!config.toml
+.embuild/
+target/
+
+Cargo.lock
+
+**/*.rs.bk
+
+*.pdb

@@ -1,0 +1,32 @@
+[package]
+name = "piper-cannot-select"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+esp-idf-svc = { version = "0.52" }
+smol = { version = "2.0.2" }
+piper = { version="=0.2.5" }
+
+[build-dependencies]
+embuild = "0.33"
+
+# opt-level 0,z:
+# rustc-LLVM ERROR: Cannot select: 0x1107752a0: i32 = Constant<4096>
+# In function: _RNvMs7_CsdnIUtCfVCSb_5piperNtB5_6Writer9write_buf
+#
+# opt-level 1,2,3,s:
+# rustc-LLVM ERROR: Cannot select: 0x10b8fbb60: i32 = Constant<4096>
+# In function: _RINvMs7_Cs4jmONCYIvAs_5piperNtB6_6Writer10fill_innerNtB6_9ReadBytesEB6_
+[profile.release]
+opt-level = "z"
+
+# opt-level 0:
+# compiles successfully
+#
+# opt-level 1,2,3,s,z:
+# rustc-LLVM ERROR: Cannot select: 0x11d3235b0: i32 = Constant<4096>
+# In function: _RNvMs7_CslbUhqtjXVj3_5piperNtB5_6Writer9write_buf
+[profile.dev]
+debug = true
+opt-level = 3
