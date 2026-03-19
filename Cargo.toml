@@ -5,7 +5,6 @@ edition = "2024"
 
 [dependencies]
 esp-idf-svc = { version = "0.52" }
-smol = { version = "2.0.2" }
 piper = { version="=0.2.5" }
 
 [build-dependencies]
